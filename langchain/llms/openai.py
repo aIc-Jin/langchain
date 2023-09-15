@@ -590,7 +590,7 @@ class AzureOpenAI(BaseOpenAI):
     openai_api_version: str = ""
 
     @root_validator()
-    def validate_azure_settings(self, values: Dict) -> Dict:
+    def validate_azure_settings(cls, values: Dict) -> Dict:
         values["openai_api_version"] = get_from_dict_or_env(
             values,
             "openai_api_version",
