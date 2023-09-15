@@ -355,10 +355,6 @@ class ChatOpenAI(BaseChatModel):
             "organization": self.openai_organization,
             "model": self.model_name,
         }
-        if self.openai_proxy:
-            openai_creds["proxy"] = (
-                {"http": self.openai_proxy, "https": self.openai_proxy},
-            )
         return {**openai_creds, **self._default_params}
 
     @property

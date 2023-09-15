@@ -186,11 +186,6 @@ class OpenAIEmbeddings(BaseModel, Embeddings):
             "api_type": self.openai_api_type,
             "api_version": self.openai_api_version,
         }
-        if self.openai_proxy:
-            openai_args["proxy"] = {
-                "http": self.openai_proxy,
-                "https": self.openai_proxy,
-            }
         return openai_args
 
     # please refer to

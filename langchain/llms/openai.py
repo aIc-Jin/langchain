@@ -443,11 +443,6 @@ class BaseOpenAI(BaseLLM):
             "api_base": self.openai_api_base,
             "organization": self.openai_organization,
         }
-        if self.openai_proxy:
-            openai_creds["proxy"] = {
-                "http": self.openai_proxy,
-                "https": self.openai_proxy,
-            }
         return {**openai_creds, **self._default_params}
 
     @property
@@ -686,26 +681,21 @@ class OpenAIChat(BaseLLM):
     @root_validator()
     def validate_environment(cls, values: Dict) -> Dict:
         """Validate that api key and python package exists in environment."""
-        openai_api_key = get_from_dict_or_env(
+        values["openai_api_key"] = get_from_dict_or_env(
             values, "openai_api_key", "OPENAI_API_KEY"
         )
-        openai_api_base = get_from_dict_or_env(
+        values["openai_api_base"] = get_from_dict_or_env(
             values,
             "openai_api_base",
             "OPENAI_API_BASE",
             default="",
         )
-        openai_organization = get_from_dict_or_env(
+        values["openai_organization"] = get_from_dict_or_env(
             values, "openai_organization", "OPENAI_ORGANIZATION", default=""
         )
         try:
             import openai
 
-            openai.api_key = openai_api_key
-            if openai_api_base:
-                openai.api_base = openai_api_base
-            if openai_organization:
-                openai.organization = openai_organization
         except ImportError:
             raise ValueError(
                 "Could not import openai python package. "
