@@ -142,6 +142,7 @@ type_to_cls_dict: Dict[str, Type[BaseLLM]] = {
     "mosaic": MosaicML,
     "nlpcloud": NLPCloud,
     "openai": OpenAI,
+    "openai-chat": OpenAIChat,
     "openlm": OpenLM,
     "petals": Petals,
     "pipelineai": PipelineAI,
